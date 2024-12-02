@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:48:44 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/02 15:26:31 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:18:29 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	main(void)
 	while (i < 1000)
 	{
 		result += abs(list_left[i] - list_right[i]);
-		//printf("abs(%d - %d) = %d \n", list_left[i], list_right[i], abs(list_left[i] - list_right[i]));
+		//printf("abs(%d - %d) = %d \n",
+		//	list_left[i], list_right[i], abs(list_left[i] - list_right[i]));
 		i++;
 	}
 	printf("Total distance: %d\n", result);
@@ -50,7 +51,8 @@ int	main(void)
 		{
 			if (list_left[i] == list_right[j])
 			{
-				//printf("left[%d] %d = %d right[%d]\n", i, list_left[i], list_right[j], j);
+				//printf("left[%d] %d = %d right[%d]\n", i,
+				//	list_left[i], list_right[j], j);
 				n_repetitions++;
 				//printf("repetition: %d\n", n_repetitions);
 			}
