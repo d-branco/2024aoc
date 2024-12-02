@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 10:20:47 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/02 16:30:19 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:59:52 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ int	main(void)
 		j = 0;
 		level = 0;
 		safe = 1;
-		printf("\n%d: %d %d...", i, report[i][0], report[i][1]);
+		printf("\n%.3d: %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d ", i,
+			 report[i][0], report[i][1], report[i][2], report[i][3],
+			 report[i][4], report[i][5], report[i][6], report[i][7],
+			 report[i][8]);
 		while (report[i][j + 1] != 0)
 		{
 			if (report[i][j + 1] == report[i][j]) // if not increasinf
 			{
-				safe = 0;
+				safe--;
 				printf("    not increasing");
-				break;
+				j++;
+				continue;
 			}
 			else if (report[i][j + 1] > report[i][j]) // if increasing
 			{
@@ -52,8 +56,9 @@ int	main(void)
 						printf("    increase too fast from %d to %d", report[i][j], report[i][j + 1]);
 					if (level == -1)
 						printf("    increasing after having decrease!");
-					safe = 0;
-					break;
+					safe--;
+					j++;
+					continue;
 				}
 				level = 1; // set level to increasing
 			}
@@ -62,8 +67,13 @@ int	main(void)
 				if (((report[i][j] - report[i][j + 1]) > 3) // too fast
 					|| (level == 1))  // increased before
 				{
-					safe = 0;
-					break;
+					if ((report[i][j] - report[i][j + 1]) > 3)
+						printf("    decrease too fast from %d to %d", report[i][j], report[i][j + 1]);
+					if (level == 1)
+						printf("    decreasing after having increased!");
+					safe--;
+					j++;
+					continue;
 				}
 				level = -1; // set level to decfreasing
 			}
@@ -75,6 +85,10 @@ int	main(void)
 		{
 			safe_number++;
 			printf(" SAFE!");
+		}
+		else
+		{
+			// TIME's UP!
 		}
 		i++;
 	}
