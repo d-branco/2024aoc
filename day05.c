@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:46:16 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/05 21:00:32 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:04:25 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	main(void)
 			r = 0;
 			while (r < 21)
 			{
-				if (( example[i][j - 1] ==  example_rules[r][1])
-					&& ( example[i][j] ==  example_rules[r][0]))
+				if ((example[i][j - 1] == example_rules[r][1])
+					&& (example[i][j] == example_rules[r][0]))
 				{
-					temp =  example[i][j - 1];
-					 example[i][j - 1] =  example[i][j];
-					 example[i][j] = temp;
+					temp = example[i][j - 1];
+					example[i][j - 1] = example[i][j];
+					example[i][j] = temp;
 					printf("    ERROR with rule %.2d: %.2d|%.2d\n", r + 1,
-						 example_rules[r][0],  example_rules[r][1]);
+						example_rules[r][0], example_rules[r][1]);
 					print_line(i);
 					j = 0;
 					correct = 0;
@@ -63,18 +63,16 @@ int	main(void)
 		{
 			printf("    CORRECT: ");
 			temp = 1;
-			while( example[i][5 - temp] == 0)
+			while (example[i][5 - temp] == 0)
 				temp++;
-			middle +=  example[i][(5 - temp) / 2];
-			printf("%.2d",  example[i][(5 - temp) / 2]);
-			
+			middle += example[i][(5 - temp) / 2];
+			printf("%.2d", example[i][(5 - temp) / 2]);
 		}
 		printf("\n");
 		i++;
 	}
 	printf("Result of the example: %d\n\n", middle);
 	// FIRST PART
-	/*
 	middle = 0;
 	i = 0;
 	while (i < 194)
@@ -108,18 +106,17 @@ int	main(void)
 		{
 			printf("    CORRECT: ");
 			temp = 1;
-			while(first[i][23 - temp] == 0)
+			while (first[i][23 - temp] == 0)
 				temp++;
 			middle += first[i][(23 - temp) / 2];
 			printf("%.2d", first[i][(23 - temp) / 2]);
-			
 		}
 		printf("\n");
 		i++;
 	}
-	printf("Result of the first part: %d\n\n", middle);	//4905
-	*/
-	// SECOND PART
+	printf("Result of the first part: %d\n", middle); //4905
+	// SECOND PART - comment first part to use this
+	/*
 	middle = 0;
 	i = 0;
 	while (i < 194)
@@ -153,16 +150,16 @@ int	main(void)
 		{
 			printf("    CORRECT: ");
 			temp = 1;
-			while(first[i][23 - temp] == 0)
+			while (first[i][23 - temp] == 0)
 				temp += 2;
 			middle += first[i][(23 - temp) / 2];
 			printf("%.2d", first[i][(23 - temp) / 2]);
-			
 		}
 		printf("\n");
 		i++;
 	}
-	printf("Result of the second part: %d\n", middle);	//6204
+	printf("Result of the second part: %d\n", middle); //6204
+	*/
 }
 
 void	print_line(int i)
