@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 09:52:38 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/09 21:19:20 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:09:10 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ char		*ft_malloc_cat_sufix_and_free_string(char *s1, char *s2);
 char		*ft_malloc_cat(const char *s1, const char *s2);
 static void	add_chr(const char *src, char *dest, int *index);
 size_t		ft_strlen(const char *s);
+int			len_of_file(char str[100000][5], int i);
 
 int	main(void)
 {
 	represent(example0, 5);
 	printf("\n");
 	represent(example, 19);
-	printf("\n");
-	represent(line, 19999);
+	//printf("\n");
+	//represent(line, 19999);
 }
 
 void	represent(int *ptr, int end)
@@ -48,6 +49,7 @@ void	represent(int *ptr, int end)
 	int		temp;
 	int		len;
 	long	checksum;
+	int		len_dot;
 
 	i = 0;
 	while (i < end)
@@ -103,15 +105,27 @@ void	represent(int *ptr, int end)
 	{
 		if (str[i][0] == '.')
 		{
+			len_dot = len_of_file(str, i);
 			k = len;
 			while(k > i)
 			{
-				if (ft_isdigit(str[k][0]))
-				{
+				if ((ft_isdigit(str[k][0])) && (str[k][0] != str[k - 1][0])
+					&& (len_of_file(str, k) <= len_dot))
+				{	
 					str[i][0] = '\0';
 					strcpy(str[i], str[k]);
 					str[k][0] = '\0';
 					strcpy(str[k], ".");
+					// Print///////////////////////////////////////////////////////////////////
+					printf("|");
+					temp = 0;
+					while (str[temp][0])
+					{
+						printf("%s|", str[temp]);
+						temp++;
+					}
+					printf("\n");
+					///
 					break ;
 				}
 				k--;
@@ -137,9 +151,29 @@ void	represent(int *ptr, int end)
 		printf("(%ld)", checksum);
 		i++;
 	}
+	printf("\n");
 	printf("Checksum: %ld\n", checksum);
 } // 825498124 too low
 // 6211348208140
+
+int	len_of_file(char str[100000][5], int i)
+{
+	int	len;
+	int	j;
+
+	len = 0;
+	j = 0;
+	while (str[i + len][j] == str[i + len + 1][j])
+	{
+		if (str[i + len][j] == '\0')
+		{
+			len++;
+			j = -1;
+		}
+		j++;
+	}
+	return (len);
+}
 
 int	ft_atoi(const char *nptr)
 {
