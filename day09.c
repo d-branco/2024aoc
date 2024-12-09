@@ -6,12 +6,12 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 09:52:38 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/09 18:28:41 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:32:51 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // usage 
-//	cc -Wall -Werror -Wextra day09.c input09.h && ./a.out
+//	cc -Wall -Werror -Wextra day09.c input09.h && valgrind -q ./a.out
 
 #include "input09.h"
 //int	example0[5] = {1, 2, 3, 4, 5};
@@ -19,6 +19,7 @@
 //int	line[19999]
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void		represent(int *ptr, int end);
 static int	len_of_int(int n);
@@ -43,7 +44,8 @@ void	represent(int *ptr, int end)
 {
 	int		i;
 	int		k;
-	char	*str;
+	char	str[20000][5];
+	int		temp;
 
 	i = 0;
 	while (i < end)
@@ -54,36 +56,51 @@ void	represent(int *ptr, int end)
 	printf("\n");
 	//move file blocks
 	i = 0;
-	str = malloc(1);
-	if (!str)
-		return ;
-	str[0] = '\0';
+	//str = calloc(sizeof(char), (20000 * 5));
+	//if (!str)
+	//	return ;
+	k = 0;
 	while (i < end)
 	{
-		
 		if ((i % 2) == 0) // If it's even
 		{
-			k = 0;
-			while (k < ptr[i])
+			temp = 0;
+			while (temp < ptr[i])
 			{
-				str = ft_malloc_cat_sufix_and_free_string(str, ft_itoa(i / 2));
+				str[k][0] = '\0';
+				strcpy(str[k], ft_itoa(i/2));
+				//str = ft_malloc_cat_sufix_and_free_string(str, ft_itoa(i / 2));
+				//str = ft_malloc_cat_sufix_and_free_string(str, "|");////////////
 				//printf("|%s|", str);
 				k++;
+				temp++;
 			}
 		}
 		if ((i % 2) == 1) // If it's odd
 		{
-			k = 0;
-			while (k < ptr[i])
+			temp = 0;
+			while (temp < ptr[i])
 			{
-				str = ft_malloc_cat_sufix_and_free_string(str, ".");
+				str[k][0] = '\0';
+				strcpy(str[k], ".");
+				//str = ft_malloc_cat_sufix_and_free_string(str, ".");
 				k++;
+				temp++;
 			}
+			//str = ft_malloc_cat_sufix_and_free_string(str, "|");////////////////
 		}
 		i++;
 	}
-	printf("%s\n", str);
-	free(str);
+	str[k][0] = '\0';
+	printf("|");
+	i = 0;
+	while (str[i][0])
+	{
+		printf("%s|", str[i]);
+		i++;
+	}
+	printf("\n");
+	//free(str);
 }
 
 int	ft_atoi(const char *nptr)
