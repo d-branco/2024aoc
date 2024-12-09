@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 09:52:38 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/09 21:08:06 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:19:20 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	main(void)
 	represent(example0, 5);
 	printf("\n");
 	represent(example, 19);
-	//printf("\n");
-	//represent(line, 19999);
+	printf("\n");
+	represent(line, 19999);
 }
 
 void	represent(int *ptr, int end)
@@ -47,6 +47,7 @@ void	represent(int *ptr, int end)
 	char	str[100000][5];
 	int		temp;
 	int		len;
+	long	checksum;
 
 	i = 0;
 	while (i < end)
@@ -127,7 +128,18 @@ void	represent(int *ptr, int end)
 		i++;
 	}
 	printf("\n");
-}
+	// Calculate the checksum
+	checksum = 0;
+	i = 0;
+	while (str[i][0] != '.')
+	{
+		checksum += i * ft_atoi(str[i]);
+		printf("(%ld)", checksum);
+		i++;
+	}
+	printf("Checksum: %ld\n", checksum);
+} // 825498124 too low
+// 6211348208140
 
 int	ft_atoi(const char *nptr)
 {
