@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 09:52:38 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/09 20:32:51 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:08:06 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	represent(int *ptr, int end)
 {
 	int		i;
 	int		k;
-	char	str[20000][5];
+	char	str[100000][5];
 	int		temp;
+	int		len;
 
 	i = 0;
 	while (i < end)
@@ -54,11 +55,7 @@ void	represent(int *ptr, int end)
 		i++;
 	}
 	printf("\n");
-	//move file blocks
 	i = 0;
-	//str = calloc(sizeof(char), (20000 * 5));
-	//if (!str)
-	//	return ;
 	k = 0;
 	while (i < end)
 	{
@@ -68,10 +65,8 @@ void	represent(int *ptr, int end)
 			while (temp < ptr[i])
 			{
 				str[k][0] = '\0';
+				//printf("(%d)", i);
 				strcpy(str[k], ft_itoa(i/2));
-				//str = ft_malloc_cat_sufix_and_free_string(str, ft_itoa(i / 2));
-				//str = ft_malloc_cat_sufix_and_free_string(str, "|");////////////
-				//printf("|%s|", str);
 				k++;
 				temp++;
 			}
@@ -82,16 +77,17 @@ void	represent(int *ptr, int end)
 			while (temp < ptr[i])
 			{
 				str[k][0] = '\0';
+				//printf("(%d)", i);
 				strcpy(str[k], ".");
-				//str = ft_malloc_cat_sufix_and_free_string(str, ".");
 				k++;
 				temp++;
 			}
-			//str = ft_malloc_cat_sufix_and_free_string(str, "|");////////////////
 		}
 		i++;
 	}
+	len = k;
 	str[k][0] = '\0';
+	// Print///////////////////////////////////////////////////////////////////
 	printf("|");
 	i = 0;
 	while (str[i][0])
@@ -100,7 +96,37 @@ void	represent(int *ptr, int end)
 		i++;
 	}
 	printf("\n");
-	//free(str);
+	// Moves the number to the first available memory space
+	i = 0;
+	while (i < len)
+	{
+		if (str[i][0] == '.')
+		{
+			k = len;
+			while(k > i)
+			{
+				if (ft_isdigit(str[k][0]))
+				{
+					str[i][0] = '\0';
+					strcpy(str[i], str[k]);
+					str[k][0] = '\0';
+					strcpy(str[k], ".");
+					break ;
+				}
+				k--;
+			}
+		}
+		i++;
+	}
+	// Print///////////////////////////////////////////////////////////////////
+	printf("|");
+	i = 0;
+	while (str[i][0])
+	{
+		printf("%s|", str[i]);
+		i++;
+	}
+	printf("\n");
 }
 
 int	ft_atoi(const char *nptr)
