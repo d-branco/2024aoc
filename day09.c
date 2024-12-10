@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 09:52:38 by abessa-m          #+#    #+#             */
-/*   Updated: 2024/12/09 22:09:10 by abessa-m         ###   ########.fr       */
+/*   Updated: 2024/12/10 09:19:36 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	main(void)
 	represent(example0, 5);
 	printf("\n");
 	represent(example, 19);
-	//printf("\n");
-	//represent(line, 19999);
+	printf("\n");
+	represent(line, 19999);
 }
 
 void	represent(int *ptr, int end)
@@ -50,6 +50,7 @@ void	represent(int *ptr, int end)
 	int		len;
 	long	checksum;
 	int		len_dot;
+	int		max;
 
 	i = 0;
 	while (i < end)
@@ -91,64 +92,83 @@ void	represent(int *ptr, int end)
 	len = k;
 	str[k][0] = '\0';
 	// Print///////////////////////////////////////////////////////////////////
-	printf("|");
-	i = 0;
-	while (str[i][0])
-	{
-		printf("%s|", str[i]);
-		i++;
-	}
-	printf("\n");
+	//printf("|");
+	//i = 0;
+	//while (str[i][0])
+	//{
+	//	printf("%s|", str[i]);
+	//	i++;
+	//}
+	//printf("\n");
 	// Moves the number to the first available memory space
 	i = 0;
-	while (i < len)
+	while (str[i][0] != '\0')
 	{
-		if (str[i][0] == '.')
+		if (str[i][0] != '.')
+			max = ft_atoi(str[i]);
+		i++;
+	}
+	while (max > 0)
+	{
+		i = 1;
+		while (i < len)
 		{
-			len_dot = len_of_file(str, i);
-			k = len;
-			while(k > i)
+			if ((str[i][0] == '.') && (str[i - 1][0] != '.'))
 			{
-				if ((ft_isdigit(str[k][0])) && (str[k][0] != str[k - 1][0])
-					&& (len_of_file(str, k) <= len_dot))
-				{	
-					str[i][0] = '\0';
-					strcpy(str[i], str[k]);
-					str[k][0] = '\0';
-					strcpy(str[k], ".");
-					// Print///////////////////////////////////////////////////////////////////
-					printf("|");
-					temp = 0;
-					while (str[temp][0])
+				len_dot = len_of_file(str, i);
+				k = len;
+				while(k > i)
+				{
+					if (ft_atoi(str[k]) == max)
 					{
-						printf("%s|", str[temp]);
-						temp++;
+						if ((ft_isdigit(str[k][0])) && (str[k][0] != str[k - 1][0])
+							&& (len_of_file(str, k) <= len_dot))
+						{	
+							str[i][0] = '\0';
+							strcpy(str[i], str[k]);
+							str[k][0] = '\0';
+							strcpy(str[k], ".");
+							// Print///////////////////////////////////////////////////////////////////
+							//printf("|");
+							//temp = 0;
+							//while (str[temp][0])
+							//{
+							//	printf("%s|", str[temp]);
+							//	temp++;
+							//}
+							//printf("\n");
+							///
+							printf("(%d)", max);
+							break ;
+						}
 					}
-					printf("\n");
-					///
-					break ;
+					k--;
 				}
-				k--;
 			}
+			i++;
 		}
-		i++;
+		max--;
 	}
+	//printf("\n");
 	// Print///////////////////////////////////////////////////////////////////
-	printf("|");
-	i = 0;
-	while (str[i][0])
-	{
-		printf("%s|", str[i]);
-		i++;
-	}
-	printf("\n");
+	//printf("|");
+	//i = 0;
+	//while (str[i][0])
+	//{
+	//	printf("%s|", str[i]);
+	//	i++;
+	//}
+	//printf("\n");
 	// Calculate the checksum
 	checksum = 0;
 	i = 0;
-	while (str[i][0] != '.')
+	while (i < len)
 	{
-		checksum += i * ft_atoi(str[i]);
-		printf("(%ld)", checksum);
+		if (str[i][0] != '.')
+		{
+			checksum += i * ft_atoi(str[i]);
+			printf("(%ld)", checksum);
+		}
 		i++;
 	}
 	printf("\n");
